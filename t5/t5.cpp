@@ -1,4 +1,4 @@
-#define CATCH_CONFIG_MAIN // O Catch fornece uma main()
+#define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
 #include <iostream>

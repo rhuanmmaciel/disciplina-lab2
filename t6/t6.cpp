@@ -1,4 +1,4 @@
-//#define CATCH_CONFIG_MAIN 
+//#define CATCH_CONFIG_MAIN
 //#include "catch.hpp"
 
 #include <iostream>
@@ -57,6 +57,7 @@ Abb<T>* abb_dir_rotate(Abb<T>* x)
     return x;
 }
 
+// inicia o no da arvore com valores nulos
 template<typename T>
 Abb<T>* abb_inicia(T v)
 {
@@ -84,26 +85,53 @@ Abb<T>* abb_inicia(std::list<T>& entrada)
     return no;
 }  
 
-// insere um no pre-alocado na arvore
+template<typename T>
+Abb<T>* abb_cria(T v){
+
+    Abb<T>* no = new Abb<T>;
+    no->dado = v;
+    no->altura = 1;
+    no->esq = nullptr;
+    no->dir = nullptr;
+
+    return no;
+
+}
+
 template<typename T>
 Abb<T>* abb_insere( Abb<T>* no, T v )
 {
     if( abb_vazio(no) )
         return abb_inicia(v);
 
-    Abb<T>* filho = new Abb<T>;
-    filho->esq = nullptr;
-    filho->dir = nullptr;
+    cout << v << " " << no->dado;
+    if(v > no->dado){
 
-    filho->dado = v;
+        if(no->dir == nullptr){
 
-    if (no->dado > v){
-        no->esq = filho;
+            no->dir = no;
+
+        }else{  
+
+            no = no->dir;
+            abb_insere(no, v);
+
+        }
+
     }else{
-        no->dir = filho;
+
+        if(no->esq == nullptr){
+
+            no->esq = no;
+
+        }else{
+
+            no = no->esq;
+            abb_insere(no, v);
+
+        }
+
     }
-
-
     return no;
 }
 
@@ -132,7 +160,7 @@ void abb_preOrdem(Abb<T>* a, std::list<T>& saida)
 {
     // primeiro esquerda
     if( !abb_vazio(a) ){
-        cout << a->dado << "(" << a->altura << ") ";
+        //std::cout << a->dado << "(" << a->altura << ") ";
         saida.push_back( a->dado );
         abb_preOrdem(a->esq, saida);
         abb_preOrdem(a->dir, saida);
@@ -148,6 +176,7 @@ void abb_destroi(Abb<T>* a)
         delete a;
     }
 }
+
 
 int main(){
 
