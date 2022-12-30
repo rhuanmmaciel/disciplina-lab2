@@ -1,5 +1,5 @@
-//#define CATCH_CONFIG_MAIN
-//#include "catch.hpp"
+#define CATCH_CONFIG_MAIN
+#include "catch.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -22,45 +22,39 @@ struct Abb {
 };
 
 template<typename T>
-bool abb_vazio(Abb<T>* no)
-{
+bool abb_vazio(Abb<T>* no){
+
     return (no == nullptr);
+
 }
 
 template<typename T>
-int abb_altura(Abb<T>* no)
-{
-    if( abb_vazio(no) )
+int abb_altura(Abb<T>* no){
+
+    if( abb_vazio(no) ){
+
         return 0;
+    
+    }
     return no->altura;
+
 }
 
 template<typename T>
-int abb_get_fb(Abb<T>* no)
-{
-    if( abb_vazio(no) )
+int abb_get_fb(Abb<T>* no){
+
+    if( abb_vazio(no) ){
+
         return 0;
+    
+    }
     return (abb_altura(no->esq) - abb_altura(no->dir));
+
 }
 
 template<typename T>
-Abb<T>* abb_esq_rotate(Abb<T>* x)
-{
-    // TODO: completar
-    return x;
-}
+Abb<T>* abb_inicia(T v){
 
-template<typename T>
-Abb<T>* abb_dir_rotate(Abb<T>* x)
-{
-    // TODO: completar
-    return x;
-}
-
-// inicia o no da arvore com valores nulos
-template<typename T>
-Abb<T>* abb_inicia(T v)
-{
     Abb<T>* no = new Abb<T>;
     no->dado = v;
     no->altura = 1;
@@ -70,19 +64,21 @@ Abb<T>* abb_inicia(T v)
     return no;
 }
 
-// recebe uma lista de valores
-// precisa converter para uma arvore
 template<typename T>
-Abb<T>* abb_inicia(std::list<T>& entrada)
-{
+Abb<T>* abb_inicia(std::list<T>& entrada){
+
     Abb<T>* no = nullptr;
-    if(entrada.empty() == true)
+    if(entrada.empty() == true){
+
       return nullptr;
+    
+    }
 
     for(auto it = entrada.begin(); it != entrada.end(); it++){
       no = abb_insere( no, *it );
     }
     return no;
+
 }  
 
 template<typename T>
@@ -99,102 +95,202 @@ Abb<T>* abb_cria(T v){
 }
 
 template<typename T>
-Abb<T>* abb_insere( Abb<T>* no, T v )
-{
-    if( abb_vazio(no) )
-        return abb_inicia(v);
+Abb<T>* abb_rot_dir(Abb<T>* &no){
 
-    cout << v << " " << no->dado;
-    if(v > no->dado){
+    Abb<T>* aux = no->esq;
+    no->esq = aux->dir;
+    aux->dir = no;
+    no->altura = max(abb_altura(no->esq), abb_altura(no->dir)) + 1;
+    aux->altura = max(abb_altura(aux->esq), no->altura) + 1;
+    return aux;
 
-        if(no->dir == nullptr){
-
-            no->dir = no;
-
-        }else{  
-
-            no = no->dir;
-            abb_insere(no, v);
-
-        }
-
-    }else{
-
-        if(no->esq == nullptr){
-
-            no->esq = no;
-
-        }else{
-
-            no = no->esq;
-            abb_insere(no, v);
-
-        }
-
-    }
-    return no;
 }
 
 template<typename T>
-Abb<T>* abb_no_minimo( Abb<T>* no )
-{
+Abb<T>* abb_rot_esq(Abb<T>* &no){
+
+    Abb<T>* aux = no->dir;
+    no->dir = aux->esq;
+    aux->esq = no;
+    no->altura = max(abb_altura(no->esq), abb_altura(no->dir)) + 1;
+    aux->altura = max(abb_altura(no->dir), no->altura) + 1;
+    return aux;
+
+}
+
+template<typename T>
+Abb<T>* abb_rot_esq_2(Abb<T>* &no){
+
+    no->dir = abb_rot_dir(no->dir);
+    return abb_rot_esq(no);
+
+}
+
+template<typename T>
+Abb<T>* abb_rot_dir_2(Abb<T>* &no){
+
+    no->esq = abb_rot_esq(no->esq);
+    return abb_rot_dir(no);
+
+}
+
+template<typename T>
+Abb<T>* abb_insere(Abb<T>* no, T v){
+
+    if(no == nullptr){
+
+        no = new Abb<T>;
+        no->dado = v;
+        no->altura = 0;
+        no->esq = no->dir = nullptr;
+    
+    }else if(v < no->dado){
+
+        no->esq = abb_insere(no->esq, v);
+        if(abb_altura(no->esq) - abb_altura(no->dir) == 2){
+
+            if(v < no->esq->dado)
+                no = abb_rot_dir(no);
+            else
+                no = abb_rot_dir_2 (no);
+        
+        }
+
+    }else if(v > no->dado){
+
+        no->dir = abb_insere(no->dir, v);
+        if(abb_altura(no->dir) - abb_altura(no->esq) == 2){
+
+            if(v > no->dir->dado){
+
+                no = abb_rot_esq(no);
+            
+            }else{
+
+                no = abb_rot_esq_2(no);
+            
+            }
+        }
+
+    }
+
+    no->altura = max(abb_altura(no->esq), abb_altura(no->dir)) + 1;
+
+    return no;
+
+}
+
+template<typename T>
+Abb<T>* abb_no_minimo( Abb<T>* no ){
+
     Abb<T>* curr = no;
     while( curr->esq != nullptr )
         curr = curr->esq;
     return curr;
+
 }
 
-// insere um no pre-alocado na arvore
 template<typename T>
-Abb<T>* abb_remove( Abb<T>* no, T v )
-{
-    if( abb_vazio(no) )
+Abb<T>* abb_remove(Abb<T>* no, T v){
+
+    Abb<T>* aux;
+
+    if(no == nullptr){
+
+        return nullptr;
+    
+    }else if(v < no->dado){
+     
+        no->esq = abb_remove(no->esq, v);
+    
+    }else if(v > no->dado){
+
+        no->dir = abb_remove(no->dir, v);
+    
+    }else if(no->esq && no->dir){
+
+        aux = abb_no_minimo(no->dir);
+        no->dado = aux->dado;
+        no->dir = abb_remove(no->dir, no->dado);
+    
+    }else{
+
+        aux = no;
+        if(no->esq == nullptr){
+
+            no = no->dir;
+        
+        }else if(no->dir == nullptr){
+
+            no = no->esq;
+        
+        }
+        delete aux;
+    
+    }
+
+    if(no == nullptr){
+
         return no;
+    
+    }
 
-    // TODO: completar
+    no->altura = max(abb_altura(no->esq), abb_altura(no->dir)) + 1;
+
+    if(abb_altura(no->esq) - abb_altura(no->dir) == -2){
+
+        if(abb_altura(no->dir->dir) - abb_altura(no->dir->esq) == 1){
+
+            return abb_rot_esq(no);
+        
+        }else{
+
+            return abb_rot_esq_2(no);
+        
+        }
+
+    }else if(abb_altura(no->dir) - abb_altura(no->esq) == 2){
+
+        if(abb_altura(no->esq->esq) - abb_altura(no->esq->dir) == 1){
+
+            return abb_rot_dir(no);
+        
+        }else{
+
+            return abb_rot_dir_2(no);
+        
+        }
+    }
     return no;
+
 }
 
 template<typename T>
-void abb_preOrdem(Abb<T>* a, std::list<T>& saida)
-{
-    // primeiro esquerda
+void abb_preOrdem(Abb<T>* a, std::list<T>& saida){
+
     if( !abb_vazio(a) ){
-        //std::cout << a->dado << "(" << a->altura << ") ";
+    
         saida.push_back( a->dado );
         abb_preOrdem(a->esq, saida);
         abb_preOrdem(a->dir, saida);
+    
     }
+
 }   
 
 template<typename T>
-void abb_destroi(Abb<T>* a)
-{
+void abb_destroi(Abb<T>* a){
+
     if( !abb_vazio(a) ){
+    
         abb_destroi(a->esq);
         abb_destroi(a->dir);
         delete a;
-    }
-}
-
-
-int main(){
-
-    Abb<int>* a;
-    list<int> entrada {1, 2, 3};
-    a = abb_inicia(entrada);
-    list<int> saida;
-    abb_preOrdem(a, saida);
-
-    for(auto it = saida.begin(); it != saida.end(); it++){
-        
-        cout << *it << endl;
     
     }
 
 }
 
-/*
 TEST_CASE("Teste vazio") {
     Abb<int>* a;
     std::list<int> entrada {};
@@ -341,4 +437,4 @@ TEST_CASE("Caso remove todos") {
     abb_preOrdem(a, saida);
     REQUIRE(saida == resultado);
     abb_destroi(a);
-}*/
+}
