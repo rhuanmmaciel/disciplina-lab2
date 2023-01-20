@@ -1,4 +1,4 @@
-# disciplina-lab2
+# Laboratório de Programação 2
 
 Trabalhos feitos para a disciplina Laboratório de Programação II no curso de CC da UFSM.
 
