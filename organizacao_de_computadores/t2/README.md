@@ -1,0 +1,3 @@
+# Projeto 2: Cosseno com série de Taylor
+
+Escreva um procedimento double cos(double x), em assembly para o MIPS, para calcular o cosseno de um ângulo x, dado em radianos. O procedimento calcula o cosseno usando uma série de Taylor expandida em x = 0 (veja a equação 1). No procedimento, trunque a a série em n = 7 (até o termo x 14/14!). Crie um programa em assembly para o MIPS. O programa permite a entrada de um ângulo x em graus (º), converte o ângulo para radianos, calcula o cosseno do ângulo usando o procedimento chama o procedimento cos() e imprime o resultado. Use o programa para calcular o seno de 57,23º. Mostre a saída da execução do seu programa no programa MARS. Verifique se o resultado apresentado pelo seu programa está correto.
