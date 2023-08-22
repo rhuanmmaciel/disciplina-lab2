@@ -1,0 +1,333 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+
+html, button, input {
+  font-family: "Fira Code", monospace;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  min-height: 100dvh;
+  background-color: hsl(215, 29%, 7%);
+}
+
+.header {
+  display: grid;
+  place-items: center;
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  padding-block: 16px;
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(215, 29%, 23%);
+}
+.header__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 42px;
+  height: 100%;
+  width: 100%;
+}
+.header__item {
+  padding: 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+.header__item:hover {
+  background-color: hsl(204, 56%, 55%);
+}
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  width: 83.33%;
+  padding-top: 120px;
+  color: hsl(0, 0%, 100%);
+}
+.dashboard .options {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 280px;
+}
+.dashboard .options__sort {
+  padding: 16px;
+  border-radius: 6px;
+  background-color: hsl(215, 29%, 23%);
+}
+.dashboard .options__sort--title {
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #fff;
+  font-size: 1.3rem;
+}
+.dashboard .options__sort__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.dashboard .options__sort__list .option {
+  padding: 8px 16px;
+  border-radius: 3px;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+.dashboard .options__sort__list .option:hover {
+  color: hsl(215, 29%, 7%);
+  background-color: hsl(0, 0%, 100%);
+}
+.dashboard .options__filter {
+  padding: 16px;
+  border-radius: 6px;
+  background-color: hsl(215, 29%, 23%);
+}
+.dashboard .options__filter--title {
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #fff;
+  font-size: 1.3rem;
+}
+.dashboard .options__filter--gender {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.dashboard .options__filter--gender .option {
+  grid-column: span 2;
+}
+.dashboard .options__filter__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.dashboard .options__filter__list .option {
+  padding: 8px;
+  border-radius: 3px;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+.dashboard .options__filter__list .option--input {
+  width: 92%;
+  margin: 0px 0px 8px 8px;
+  padding: 8px;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  color: inherit;
+  background-color: inherit;
+}
+.dashboard .options__filter__list .option--input::-moz-placeholder {
+  color: #d1d1d1;
+}
+.dashboard .options__filter__list .option--input::placeholder {
+  color: #d1d1d1;
+}
+.dashboard .options__filter__list .option--input::-webkit-outer-spin-button, .dashboard .options__filter__list .option--input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.dashboard .options__filter__list .radio {
+  display: flex;
+  gap: 4px;
+  margin-left: 8px;
+}
+.dashboard .options__submit {
+  padding: 12px;
+  border-radius: 6px;
+  color: hsl(215, 29%, 7%);
+  background-color: hsl(0, 0%, 86%);
+  text-align: center;
+  cursor: pointer;
+}
+.dashboard .options__submit:hover {
+  background-color: hsl(0, 0%, 100%);
+}
+.dashboard .movies__wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 128px;
+}
+.dashboard .movies__wrapper .page-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  margin-top: 32px;
+}
+.dashboard .movies__wrapper .page-btns .btn {
+  width: 128px;
+  padding: 16px;
+  border-radius: 3px;
+  color: hsl(215, 29%, 7%);
+  background-color: hsl(0, 0%, 86%);
+  transition: all 0.1s ease-in-out;
+  text-align: center;
+  cursor: pointer;
+}
+.dashboard .movies__wrapper .page-btns .btn:hover {
+  background-color: hsl(0, 0%, 100%);
+}
+.dashboard .movies {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.dashboard .movies .movie {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 280px;
+  min-height: 526px;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 16px;
+  border-radius: 6px;
+  background-color: hsl(215, 29%, 23%);
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.0823529412);
+}
+.dashboard .movies .movie__poster {
+  width: calc(100% + 32px);
+  margin: -16px -16px 12px -16px;
+  border-radius: 6px;
+}
+.dashboard .movies .movie__data {
+  display: grid;
+  grid-template-columns: 8fr 2fr;
+  grid-template-rows: 4fr 1fr;
+}
+.dashboard .movies .movie__title {
+  font-size: 0.9rem;
+}
+.dashboard .movies .movie__director {
+  grid-column: 1;
+  grid-row: 2;
+  font-size: 0.8rem;
+}
+.dashboard .movies .movie__release {
+  grid-column: 2;
+  grid-row: 2;
+  text-align: right;
+  font-size: 0.8rem;
+}
+.dashboard .movies .movie__rating {
+  grid-column: 2;
+  grid-row: 1;
+  text-align: right;
+  font-size: 0.8rem;
+}
+.dashboard .artists__wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 128px;
+}
+.dashboard .artists__wrapper .page-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  margin-top: 32px;
+}
+.dashboard .artists__wrapper .page-btns .btn {
+  width: 128px;
+  padding: 16px;
+  border-radius: 3px;
+  color: hsl(215, 29%, 7%);
+  background-color: hsl(0, 0%, 86%);
+  transition: all 0.1s ease-in-out;
+  text-align: center;
+  cursor: pointer;
+}
+.dashboard .artists__wrapper .page-btns .btn:hover {
+  background-color: hsl(0, 0%, 100%);
+}
+.dashboard .artists {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+}
+.dashboard .artists .artist {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 520px;
+  padding: 16px;
+  border-radius: 6px;
+  background-color: hsl(215, 29%, 23%);
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.0823529412);
+}
+.dashboard .artists .artist__movie {
+  display: grid;
+  grid-template-columns: 40px auto;
+  margin-left: 16px;
+}
+
+.movie__wrapper {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 100dvh;
+}
+.movie__wrapper .movie {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  color: hsl(0, 0%, 100%);
+}
+.movie__wrapper .movie__poster {
+  width: 360px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 60px rgba(255, 255, 255, 0.0392156863);
+}
+.movie__wrapper .movie__data {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 640px;
+}
+.movie__wrapper .movie__overview {
+  display: flex;
+  flex-direction: column;
+}
+.movie__wrapper .movie__text {
+  padding: 8px 12px;
+  border-radius: 3px;
+  background-color: hsl(215, 29%, 23%);
+}
+.movie__wrapper .movie__cast {
+  display: flex;
+  flex-direction: column;
+}
+.movie__wrapper .movie__actor {
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  border-radius: 3px;
+  background-color: hsl(215, 29%, 23%);
+}
+
+.charts {
+  display: grid;
+  place-items: center;
+}/*# sourceMappingURL=app.css.map */

@@ -1,0 +1,56 @@
+FILMES:
+* mostrar:
+  - imagem
+  - nome
+  - lançamento 
+  - avaliação
+  - diretor
+  - atores
+  - faturamento
+  - custo
+  - duração
+  - sumario
+
+* filtrar:
+  - lançamento
+  - ator
+  - diretor
+  - nome
+
+* ordenar:
+  - nome
+  - faturamento
+  - duração 
+  - lançamento
+
+-------------------------------
+ATORES:
+* mostrar:
+  - nome
+  - idade
+  - nacionalidade
+  - altura 
+  - genero
+
+* filtrar:
+  - nacionalidade
+  - genero
+
+* ordenar:
+  - nome
+  - idade
+  - altura
+
+-------------------------------
+DIRETORES: 
+* mostrar:
+  - nome
+  - genero
+  - filmes digeridos
+
+* filtrar:
+  - genero
+
+* ordenar:
+  - nome
+  - quantidade de filmes

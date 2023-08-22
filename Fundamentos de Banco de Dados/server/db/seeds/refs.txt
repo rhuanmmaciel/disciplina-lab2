@@ -1,0 +1,3 @@
+filmes: https://www.kaggle.com/datasets/harshitshankhdhar/imdb-dataset-of-top-1000-movies-and-tv-shows
+atores: https://data.world/nimcool/movies/workspace/file?filename=Movies.DB-Haukinima_Faanunu.xlsx
+diretores: https://data.world/samarthgoyal2112/namebasics/workspace/file?filename=movies.sqlite
